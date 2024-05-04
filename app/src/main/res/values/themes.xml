@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Rhizomaalismatis" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Rhizoma_alismatis" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Rhizomaalismatis" parent="Base.Theme.Rhizomaalismatis" />
+    <style name="Theme.Rhizoma_alismatis" parent="Base.Theme.Rhizoma_alismatis"/>
 </resources>
