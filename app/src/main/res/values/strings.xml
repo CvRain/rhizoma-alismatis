@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">rhizoma_alismatis</string>
+    <string name="title_home">HOMO</string>
+    <string name="title_list">列表</string>
+    <string name="title_my">我的</string>
+    <string name="title_tunnel">通道</string>
+    <string name="title_play">随便听听</string>
 </resources>
