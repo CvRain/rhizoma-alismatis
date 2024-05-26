@@ -6,27 +6,27 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/nav_home"
             android:title="@string/title_home"
-            android:onClick="gotoHome"/>
+            />
     <item
             android:id="@+id/nav_list"
             android:icon="@drawable/nav_list"
             android:title="@string/title_list"
-            android:onClick="gotoMusicList"/>
+            />
 
     <item
             android:id="@+id/nav_play"
             android:icon="@drawable/nav_play"
             android:title="@string/title_play"
-            android:onClick="gotoPlay"/>
+            />
     <item
             android:id="@+id/nav_tunnel"
             android:icon="@drawable/nav_tunnel"
             android:title="@string/title_tunnel"
-            android:onClick="gotoTunnel"/>
+            />
     <item
             android:id="@+id/nav_my"
             android:icon="@drawable/nav_my"
             android:title="@string/title_my"
-            android:onClick="gotoUser"
+
             />
 </menu>
