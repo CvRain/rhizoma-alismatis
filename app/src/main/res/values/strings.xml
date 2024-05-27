@@ -5,4 +5,14 @@
     <string name="title_my">我的</string>
     <string name="title_tunnel">通道</string>
     <string name="title_play">随便听听</string>
+    <string name="test_str">test_str</string>
+    <string name="password">密码</string>
+    <string name="email">邮箱</string>
+    <string name="login">登陆</string>
+
+    <string name="recent_play">最近播放</string>
+    <string name="register">注册</string>
+    <string name="username">用户名</string>
+    <string name="already_have_account">已有账号</string>
+    <string name="without_account">没有账号，点击注册</string>
 </resources>
