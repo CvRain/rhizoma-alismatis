@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,7 +18,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class PageUserFragment extends Fragment {
     private static final String TAG = "page_user";
-    View myView;
+    private View myView;
+    private Button userNameButton;
+    private ListView recentPlayListView;
+
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -32,6 +38,10 @@ public class PageUserFragment extends Fragment {
         if (myView == null) {
             myView = inflater.inflate(R.layout.layout_user, null);
         }
+        //获取组件实例
+        userNameButton = myView.findViewById(R.id.layout_user_name);
+        userNameButton.setOnClickListener(this::UserNameClicked);
+
         clearParent(myView);
         Log.d(TAG, "onCreateView: ");
         return myView;
@@ -44,21 +54,7 @@ public class PageUserFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onAttach(@NonNull @NotNull Context context) {
-        super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
-    }
+    public void UserNameClicked(View view) {
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
     }
 }

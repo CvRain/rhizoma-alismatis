@@ -4,8 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              tools:context=".UserLayout">
+              android:orientation="vertical">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -21,11 +20,13 @@
                 android:layout_height="128dp"
                 android:id="@+id/imageView"
                 android:layout_marginTop="50dp"
-                app:riv_corner_radius_bottom_left="35dp"
-                app:riv_corner_radius_bottom_right="35dp"
-                app:riv_corner_radius_top_left="35dp"
-                app:riv_corner_radius_top_right="35dp"
-                android:src="@mipmap/ic_launcher"
+                app:riv_corner_radius_bottom_left="96dp"
+                app:riv_corner_radius_bottom_right="96dp"
+                app:riv_corner_radius_top_left="96dp"
+                app:riv_corner_radius_top_right="96dp"
+                android:src="@drawable/nav_my"
+                app:riv_border_color="@color/white"
+                app:riv_border_width="3dp"
                 />
 
         <LinearLayout
@@ -44,7 +45,7 @@
                     android:textColor="@android:color/darker_gray"
                     android:textAlignment="center"
                     android:text="@string/test_str"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:background="@android:color/transparent"
                     android:clickable="true"
                     >
