@@ -14,7 +14,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        //初始化数据库
+        DatabaseService.getInstance(this);
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         viewPager = findViewById(R.id.container_main);
