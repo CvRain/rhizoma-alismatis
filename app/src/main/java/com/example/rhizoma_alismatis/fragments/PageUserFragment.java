@@ -1,6 +1,7 @@
 package com.example.rhizoma_alismatis.fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,11 +35,13 @@ public class PageUserFragment extends Fragment {
     private boolean isLogin = false;
     private Intent layoutIntent;
 
+
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseService = DatabaseService.getInstance(getContext());
         Log.d(TAG, "onCreate: ");
+
     }
 
     @SuppressLint("InflateParams")
@@ -55,6 +62,12 @@ public class PageUserFragment extends Fragment {
         return myView;
     }
 
+//    废弃的方法，不再使用
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+
     private void clearParent(View v) {
         ViewGroup pa = (ViewGroup) v.getParent();
         if (pa != null) {
@@ -63,19 +76,17 @@ public class PageUserFragment extends Fragment {
     }
 
     public void UserNameClicked(View view) {
-        //如果用户没登陆，那么按钮跳转就是登陆界面。
-        //用户登陆成功，那么按钮会显示用户名，此时点击会跳转用户信息页面。
-        layoutIntent = new Intent(getContext(), this.getClass());
+        Intent layoutIntent = new Intent(getContext(), this.getClass());
         if (isLogin) {
-            //跳转到用户信息界面
+            // 跳转到用户信息界面
             layoutIntent.setClass(getContext(), UserInfoDetailLayout.class);
         } else {
-            //跳转到登陆界面
+            // 跳转到登陆界面
             layoutIntent.setClass(getContext(), UserLoginLayout.class);
         }
         if (getContext() != null) {
             getContext().startActivity(layoutIntent);
         }
-
     }
+
 }
