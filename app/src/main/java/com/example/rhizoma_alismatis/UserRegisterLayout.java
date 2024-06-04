@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -92,12 +93,14 @@ public class UserRegisterLayout extends AppCompatActivity {
         ))) {
             registerMessage.setText("Register Successfully");
             startActivity(jumpLoginIntent);
+
+            //display toast
+            Toast.makeText(this, "Register Successfully", Toast.LENGTH_SHORT).show();
+
             finish();
         } else {
             registerMessage.setText("Register Failed");
         }
-
-
     }
 
     private String generateUUid() {

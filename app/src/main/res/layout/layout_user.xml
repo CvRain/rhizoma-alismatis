@@ -4,7 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:id="@+id/fragment_user_layout">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +45,7 @@
                     android:textSize="24sp"
                     android:textColor="@android:color/darker_gray"
                     android:textAlignment="center"
-                    android:text="@string/test_str"
+                    android:text="@string/login"
                     android:layout_marginTop="5dp"
                     android:background="@android:color/transparent"
                     android:clickable="true"
