@@ -69,6 +69,12 @@ public class UserRegisterLayout extends AppCompatActivity {
             return;
         }
 
+        // 检测是否是一个合法的邮箱
+        if (!userEmail.getText().toString().matches("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")) {
+            registerMessage.setText("Please enter a valid email address");
+            return;
+        }
+
         if (!userPassword.getText().toString().equals(userRepeatPassword.getText().toString())) {
             registerMessage.setText("Passwords do not match");
             return;
