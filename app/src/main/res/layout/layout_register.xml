@@ -66,7 +66,7 @@
                 android:textSize="24sp"
                 android:layout_margin="16dp"/>
         <EditText
-                android:id="@+id/register_password"
+                android:id="@+id/repeat_register_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -76,6 +76,29 @@
                 android:importantForAutofill="no"
                 android:inputType="textPassword"/>
     </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="@string/repeat"
+                android:textSize="24sp"
+                android:layout_margin="16dp"/>
+        <EditText
+                android:id="@+id/register_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/repeat_password"
+                android:textSize="24sp"
+                android:layout_margin="16dp"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"/>
+    </LinearLayout>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,7 +113,6 @@
                 android:layout_margin="16dp"/>
     </LinearLayout>
 
-<!--    已有账号，切换登陆-->
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -103,6 +125,23 @@
                 android:text="@string/already_have_account"
                 android:textSize="14sp"
                 android:layout_margin="16dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+        <TextView
+                android:id="@+id/register_result_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="#F44336"
+                android:textSize="14sp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -3,11 +3,13 @@ package com.example.rhizoma_alismatis;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
+import com.example.rhizoma_alismatis.models.LocalUserTable;
 import com.example.rhizoma_alismatis.models.RecentMusic;
+import com.example.rhizoma_alismatis.models.UserInfo;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +40,12 @@ public class DatabaseService extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         System.out.println("DatabaseService::onCreate");
-        String create_user_table = "create table " + LocalUserInfo.USER_TABLE_NAME + "(" +
-                LocalUserInfo.USER_ID + " text primary key, " +
-                LocalUserInfo.USER_TOKEN + " text, " +
-                LocalUserInfo.USER_ICON + " text)";
+        String create_user_table = "create table " + LocalUserTable.USER_TABLE_NAME + "(" +
+                LocalUserTable.USER_ID + " text primary key, " +
+                LocalUserTable.USER_NAME + " text, " +
+                LocalUserTable.USER_EMAIL + " text, " +
+                LocalUserTable.USER_TOKEN + " text, " +
+                LocalUserTable.USER_ICON + " text)";
         db.execSQL(create_user_table);
 
         String create_recent_music_table = "create table " + RecentMusic.RECENT_MUSIC + "(" +
@@ -55,9 +59,94 @@ public class DatabaseService extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         System.out.println("DatabaseService::onUpgrade");
-        db.execSQL("drop table if exists " + LocalUserInfo.USER_TABLE_NAME);
+        db.execSQL("drop table if exists " + LocalUserTable.USER_TABLE_NAME);
         db.execSQL("drop table if exists " + RecentMusic.RECENT_MUSIC);
         onCreate(db);
+    }
+
+    public boolean InsertUserInfo(UserInfo userInfo) {
+        System.out.println("DatabaseService::InsertUserInfo");
+
+        SQLiteDatabase db = getWritableDatabase();
+        String userId = userInfo.UserId;
+        ContentValues values = getContentValues(userInfo, userId);
+
+        if (db.insert(LocalUserTable.USER_TABLE_NAME, null, values) == -1) {
+            db.close();
+            return false;
+        } else {
+            db.close();
+            return true;
+        }
+    }
+
+    private static @NotNull ContentValues getContentValues(UserInfo userInfo, String userId) {
+        String userName = userInfo.UserName;
+        String userEmail = userInfo.UserEmail;
+        String userToken = userInfo.UserToken;
+        String userIcon = userInfo.UserIcon;
+
+        ContentValues values = new ContentValues();
+        values.put(LocalUserTable.USER_ID, userId);
+        values.put(LocalUserTable.USER_NAME, userName);
+        values.put(LocalUserTable.USER_EMAIL, userEmail);
+        values.put(LocalUserTable.USER_TOKEN, userToken);
+        values.put(LocalUserTable.USER_ICON, userIcon);
+        return values;
+    }
+
+    public boolean SearchUserExist(String userEmail){
+        System.out.println("DatabaseService::SearchUserExist");
+
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {LocalUserTable.USER_EMAIL};
+
+        Cursor cursor = db.query(LocalUserTable.USER_TABLE_NAME,
+                projection,
+                LocalUserTable.USER_EMAIL + " = ?",
+                new String[]{userEmail},
+                null,
+                null,
+                null);
+
+        if (cursor.getCount() > 0) {
+            cursor.close();
+            return true;
+        } else {
+            cursor.close();
+            return false;
+        }
+    }
+
+    public UserInfo GetUserInfo(String userEmail) {
+        System.out.println("DatabaseService::GetUserInfo");
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {LocalUserTable.USER_ID,
+                LocalUserTable.USER_NAME,
+                LocalUserTable.USER_EMAIL,
+                LocalUserTable.USER_TOKEN,
+                LocalUserTable.USER_ICON};
+        Cursor cursor = db.query(LocalUserTable.USER_TABLE_NAME,
+                projection,
+                LocalUserTable.USER_EMAIL + " = ?",
+                new String[]{userEmail},
+                null,
+                null,
+                null);
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+        }else{
+            cursor.close();
+            return null;
+        }
+        UserInfo result =  new UserInfo();
+        result.UserId = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_ID));
+        result.UserName = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_NAME));
+        result.UserEmail = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_EMAIL));
+        result.UserToken = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_TOKEN));
+        result.UserIcon = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_ICON));
+        cursor.close();
+        return result;
     }
 
     public void InsertRecentMusic(RecentMusic recentMusic) {
@@ -111,11 +200,4 @@ public class DatabaseService extends SQLiteOpenHelper {
         return recentMusics;
     }
 
-}
-
-class LocalUserInfo {
-    public static final String USER_TABLE_NAME = "user_info";
-    public static final String USER_ID = "user_id";
-    public static final String USER_TOKEN = "user_token";
-    public static final String USER_ICON = "user_icon";
 }
