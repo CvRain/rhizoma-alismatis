@@ -95,7 +95,7 @@ public class DatabaseService extends SQLiteOpenHelper {
         return values;
     }
 
-    public boolean SearchUserExist(String userEmail){
+    public boolean SearchUserExist(String userEmail) {
         System.out.println("DatabaseService::SearchUserExist");
 
         SQLiteDatabase db = getReadableDatabase();
@@ -135,11 +135,11 @@ public class DatabaseService extends SQLiteOpenHelper {
                 null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-        }else{
+        } else {
             cursor.close();
             return null;
         }
-        UserInfo result =  new UserInfo();
+        UserInfo result = new UserInfo();
         result.UserId = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_ID));
         result.UserName = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_NAME));
         result.UserEmail = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_EMAIL));
@@ -147,6 +147,22 @@ public class DatabaseService extends SQLiteOpenHelper {
         result.UserIcon = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_ICON));
         cursor.close();
         return result;
+    }
+
+    public UserInfo UpdateUserInfo(UserInfo userInfo) {
+        System.out.println("DatabaseService::UpdateUserInfo");
+        SQLiteDatabase db = getWritableDatabase();
+        if (db.update(
+                LocalUserTable.USER_TABLE_NAME,
+                getContentValues(userInfo, userInfo.UserId),
+                LocalUserTable.USER_EMAIL + " = ?",
+                new String[]{userInfo.UserEmail}) == 0) {
+            db.close();
+            return null;
+        } else {
+            db.close();
+        }
+        return GetUserInfo(userInfo.UserEmail);
     }
 
     public void InsertRecentMusic(RecentMusic recentMusic) {
