@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
-                     android:maxSdkVersion="32"/>
+
+    <uses-permission
+            android:name="android.permission.READ_EXTERNAL_STORAGE"
+            android:maxSdkVersion="32"/>
+    <uses-permission
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            android:maxSdkVersion="32"
+            tools:ignore="ScopedStorage"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
@@ -13,7 +20,8 @@
             android:roundIcon="@drawable/user_icon"
             android:supportsRtl="true"
             android:theme="@style/Theme.Rhizoma_alismatis"
-            tools:targetApi="31">
+            tools:targetApi="31"
+            android:usesCleartextTraffic="true">
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
@@ -23,28 +31,31 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".UserLoginLayout"
-                  android:exported="true">
+        <activity
+                android:name=".UserLoginLayout"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.USER_LOGIN"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".UserRegisterLayout"
-                  android:exported="true">
+        <activity
+                android:name=".UserRegisterLayout"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.USER_REGISTER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".UserInfoDetailLayout"
-                  android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.USER_INFO_DETAIL"/>
-                    <category android:name="android.intent.category.DEFAULT"/>
-                </intent-filter>
+        <activity
+                android:name=".UserInfoDetailLayout"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_INFO_DETAIL"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
 
     </application>

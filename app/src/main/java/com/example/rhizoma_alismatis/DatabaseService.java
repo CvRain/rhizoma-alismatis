@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import com.example.rhizoma_alismatis.models.LocalUserTable;
 import com.example.rhizoma_alismatis.models.RecentMusic;
@@ -80,6 +81,7 @@ public class DatabaseService extends SQLiteOpenHelper {
         }
     }
 
+
     private static @NotNull ContentValues getContentValues(UserInfo userInfo, String userId) {
         String userName = userInfo.UserName;
         String userEmail = userInfo.UserEmail;
@@ -148,6 +150,43 @@ public class DatabaseService extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
+
+    public List<UserInfo> GetAllUsers(){
+        System.out.println("DatabaseService::GetAllUsers");
+        SQLiteDatabase db = getReadableDatabase();
+        List<UserInfo> users = new ArrayList<>();
+        try {
+            String[] projection = {LocalUserTable.USER_ID,
+                    LocalUserTable.USER_NAME,
+                    LocalUserTable.USER_EMAIL,
+                    LocalUserTable.USER_TOKEN,
+                    LocalUserTable.USER_ICON};
+            Cursor cursor = db.query(LocalUserTable.USER_TABLE_NAME,
+                    projection,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    String userId = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_ID));
+                    String userName = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_NAME));
+                    String userEmail = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_EMAIL));
+                    String userToken = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_TOKEN));
+                    String userIcon = cursor.getString(cursor.getColumnIndexOrThrow(LocalUserTable.USER_ICON));
+                    users.add(new UserInfo(userId, userName, userEmail, userToken, userIcon));
+                    Log.d("Database", userId);
+                }
+            }
+            cursor.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
 
     public UserInfo UpdateUserInfo(UserInfo userInfo) {
         System.out.println("DatabaseService::UpdateUserInfo");

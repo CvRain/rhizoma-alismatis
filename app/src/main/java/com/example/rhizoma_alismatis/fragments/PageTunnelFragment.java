@@ -7,11 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.rhizoma_alismatis.DatabaseService;
 import com.example.rhizoma_alismatis.R;
+import com.example.rhizoma_alismatis.adapters.UsersAdapter;
+import com.example.rhizoma_alismatis.models.LoginViewModel;
+import com.example.rhizoma_alismatis.models.UserInfo;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class PageTunnelFragment extends Fragment {
     private static final String TAG = "page_music_list";
@@ -34,6 +41,14 @@ public class PageTunnelFragment extends Fragment {
         }
         clearParent(myView);
         Log.d(TAG, "onCreateView: ");
+
+        if(LoginViewModel.getInstance().getIsLoggedIn()){
+            List<UserInfo> users = DatabaseService.getInstance(myView.getContext()).GetAllUsers();
+            UsersAdapter usersAdapter = new UsersAdapter(myView.getContext(), R.layout.user_component, users);
+            ListView listView = myView.findViewById(R.id.tunnel_list_view);
+            listView.setAdapter(usersAdapter);
+        }
+
         return myView;
     }
 
