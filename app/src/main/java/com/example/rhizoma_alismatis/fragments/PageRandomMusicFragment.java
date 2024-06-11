@@ -7,11 +7,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.rhizoma_alismatis.DatabaseService;
 import com.example.rhizoma_alismatis.R;
+import com.example.rhizoma_alismatis.adapters.UsersAdapter;
+import com.example.rhizoma_alismatis.models.UserInfo;
+import com.example.rhizoma_alismatis.models.WeatherForecast;
+import com.example.rhizoma_alismatis.utils.ImageFormat;
+import com.example.rhizoma_alismatis.utils.NetworkRequest;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PageRandomMusicFragment extends Fragment {
     private static final String TAG = "page_random_play";
@@ -34,6 +46,33 @@ public class PageRandomMusicFragment extends Fragment {
         }
         clearParent(myView);
         Log.d(TAG, "onCreateView: ");
+
+
+
+        List<WeatherForecast> forecastList = new ArrayList<>();
+        NetworkRequest request = new NetworkRequest(forecasts -> {
+            List<UserInfo> users = new ArrayList<>();
+            for (WeatherForecast it : forecasts){
+                users.add(new UserInfo(it.getSummary(),it.getTemperatureC() + " " + it.getSummary(),it.getSummary(),it.getDate(), getString(R.string.default_icon)));
+            }
+            forecastList.addAll(forecasts);
+            UsersAdapter usersAdapter = new UsersAdapter(myView.getContext(), R.layout.user_component, users);
+            ListView listView = myView.findViewById(R.id.random_list_view);
+            listView.setAdapter(usersAdapter);
+
+        });
+
+        request.execute("http://10.0.2.2:5029/WeatherForecast");
+        Log.d("weather", "execute");
+
+        // 遍历forecastList
+        for (WeatherForecast it : forecastList){
+            Log.d("weather", it.getDate());
+        }
+
+
+
+
         return myView;
     }
 

@@ -1,4 +1,4 @@
-package com.example.rhizoma_alismatis;
+package com.example.rhizoma_alismatis.utils;
 
 import com.google.gson.Gson;
 import okhttp3.*;
@@ -44,4 +44,5 @@ public class NetworkManager {
             return null;
         }
     }
+
 }
